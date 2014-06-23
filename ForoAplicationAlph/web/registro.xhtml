@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+  
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/newTemplate.xhtml">
+            <ui:define name="content">
+            <h:form id="registerform">
+           
+            <center>
+                <p:panel id="panel" style="width:500px;  " > 
+                     <p:growl id="growl" showDetail="true" life="5000"/> 
+            <f:facet name="header" >  
+                Registration
+             </f:facet>   
+                    <div align="center">
+                        <h:panelGrid id="grid" columns="2" cellspacing="2">
+                            <p:outputLabel value="Name :" style="font-size: large" />  
+                            <p:inputText id="nomus" style="font-size: large"  value="#{user.name}" required="true"  requiredMessage="insert name" validatorMessage="only letters, minimum 2 character, maximum 20" >
+                   <f:validateLength minimum="3" maximum="20" />
+                   <f:validateRegex pattern="[a-zA-Z]+" />
+                   <f:ajax render="mensajenom" event="keyup"/>
+                </p:inputText>
+                            <h:outputLabel value="PP"  style="font-size: x-small;color: white" /><h:message id="mensajenom"  for="nomus" style="font-size: xx-small;color: red"/>
+                   
+                   <p:outputLabel value="Last name :" style="font-size: large"  />  
+                   <p:inputText id="ap" style="font-size: large" value="#{user.lastname}" required="true"  requiredMessage="insert lastname" validatorMessage="only letters, minimum 2 character, maximum 20" >
+                   <f:validateRegex pattern="[a-zA-Z]+" />
+                   <f:validateLength minimum="1" maximum="20"/>  
+                   <f:ajax render="mensajeap" event="keyup"/>
+                 </p:inputText>
+                   <h:outputLabel value="PP"  style="font-size: x-small;color: white" /> <h:message id="mensajeap"  for="ap" style="font-size: xx-small;color: red" />
+                  
+             
+                 
+                 <p:outputLabel value="Password :" style="font-size: large" />  
+                 <p:inputText id="pass" style="font-size: large" required="true"  requiredMessage="insert password" validatorMessage="Maximum 20 characters">
+                   <f:validateLength minimum="1" maximum="20"/>
+                   <f:ajax render="mensajepass" event="keyup"/>
+                  </p:inputText>   
+                 <h:outputLabel value="PP"  style="font-size: x-small;color: white" /><h:message id="mensajepass"  for="pass" style="font-size: xx-small;color: red" />
+                 
+                 <p:outputLabel value="E-mail :" style="font-size: large" />  
+                 <p:inputText id="correo" style="font-size: large" value="#{user.email}" required="true"  requiredMessage="insert e-mail" validatorMessage="wrong format (xxxxx@xxxx.xxx)">
+                   <f:validateLength minimum="1" maximum="35"/>
+                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                   <f:ajax render="mensajecorreo" event="keyup"/>
+                  </p:inputText> 
+                 <h:outputLabel value="PP"  style="font-size: x-small;color: white" /><h:message id="mensajecorreo"  for="correo" style="font-size: xx-small;color: red" />
+                 
+                 
+                 
+                 <p:outputLabel value="Username :" style="font-size: large" />  
+                 <p:inputText id="us" style="font-size: large"  required="true"  requiredMessage="insert user" validatorMessage="Maximum 20 characters">
+                   <f:validateLength minimum="1" maximum="20"/>
+                   <f:ajax render="mensajeus" event="keyup"/>
+                  </p:inputText> 
+                 <h:outputLabel value="PP"  style="font-size: x-small;color: white" /><h:message id="mensajeus"  for="us" style="font-size:xx-small;color: red "/>
+       
+            
+         </h:panelGrid> 
+                    </div>
+                    <center>
+                        <p:commandButton style="margin-top: 10%;margin-left: 10%" actionListener="#{user.regitrar()}" value="Register" update="panel" > 
+                             <p:ajax event="dialogReturn" listener="#{user.redirectLog}" update="growl" />
+                        </p:commandButton>
+                    <h:outputLabel id="indicador" style="color: red"/>
+                    </center>
+                    <p></p>
+                  
+</p:panel>  
+            </center>
+                
+        </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

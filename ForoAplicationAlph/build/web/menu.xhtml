@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+      
+        <title>Facelet Title</title>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/templates/contenido.xhtml">
+            <ui:define name="content">
+                <h:form id="menu">
+  <p:idleMonitor  timeout="600000" >
+
+                         <p:ajax event="idle" listener="#{user.idleListener()}"   />
+
+                    </p:idleMonitor>
+                    <p:tabMenu style="margin-left: 0px"  >
+                        <p:menuitem value="LogOut" action="#{user.logOut()}"   icon="ui-icon-search" style="font-size: small">
+                  
+                </p:menuitem>
+                <p:menuitem value="General" action="#{question.paginaGeneral()}"   icon="ui-icon-search" style="font-size: small">
+                  
+                </p:menuitem>
+                <p:menuitem value="Endodontics"  action="#{question.paginaEndodon()}" icon="ui-icon-search" style="font-size: small">
+                
+                </p:menuitem>
+                <p:menuitem value="Orthodontics"  action="#{question.paginaOrthodontics()}" icon="ui-icon-document" style="font-size: small">
+                    
+                </p:menuitem>
+                <p:menuitem value="Patients" action="#{question.paginaPatients()}" icon="ui-icon-wrench" style="font-size: small">
+                   
+                </p:menuitem>
+                <p:menuitem value="Periodontics" action="#{question.paginaPeriodontics()}" icon="ui-icon-person" style="font-size: small">
+                   
+                </p:menuitem>
+                <p:menuitem value="Restoration" action="#{question.paginaRestoration()}" icon="ui-icon-person" style="font-size: small">
+                    
+                </p:menuitem>
+                <p:menuitem value="Students" action="#{question.paginaStudents()}" icon="ui-icon-person" style="font-size: small">
+                  
+                </p:menuitem>
+                <p:menuitem value="Surgery" action="#{question.paginaSurgery()}" icon="ui-icon-person" style="font-size: small">
+                  
+                </p:menuitem>
+                <p:menuitem value="Cosmetic" action="#{question.paginaCosmetic()}"  icon="ui-icon-person" style="font-size: small">
+                    <f:param name="i" value="8" />
+                </p:menuitem>
+            </p:tabMenu>   
+                    <p:panel style="border-color: #045491;height: 100%; background-image:url('../images/fondo.png')" >
+                        <div id="contenidoMenu" class="center_content"  style="background: none">
+          
+                   
+             <ui:insert name="contenidoMenu">
+                 
+                        
+                    </ui:insert>
+          
+                             
+        </div>       
+                         
+                    </p:panel>
+           
+          
+
+
+        </h:form>
+            </ui:define>
+        </ui:composition>
+        
+    </h:body>
+</html>
+

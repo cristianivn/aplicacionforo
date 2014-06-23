@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+   <f:event type="preRenderView" listener="#{user.verificar}" />
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/menu.xhtml">
+            <ui:define name="contenidoMenu" >
+                
+                <h:form id="forma">
+
+                    <p:dataTable  id="table" var="car" value="#{question.listq}" selectionMode="single" selection="#{question.selectques}" rowExpandMode="single" rowKey="#{car.idQuestions.toString()}" rows="12" paginator="true" paginatorPosition="bottom" style="width: 130%;margin-left: -15%;margin-top: -1.5%"  >
+                        <f:facet name="header" >                  
+
+                            <p:inputTextarea   value="#{question.question}" rows="2" cols="80" style="width: 80%;height: 20px;margin-left: 7%;font-size: small" counter="display" maxlength="100" counterTemplate="{0} Characters remaining."  autoResize="false" />
+                             <div  style="margin-top: -3%;margin-left: 94%">     <p:commandButton value="Add" actionListener="#{question.createQuestion(1)}" style="background-color: #ece3a5;margin-left: 1%" update="table"/></div>
+                                <div align="left" style="margin-top: -3%">
+                                    <h:outputLabel value="Make a Question: "/><br></br><h:outputText id="display" style="color: white;font-size: xx-small;margin-left:0%"/>
+                            </div>
+                           
+                        
+                        </f:facet>
+                       
+                        <p:ajax event="rowSelect" listener="#{question.onRowSelect}" />
+                        <p:ajax event="rowUnselect" listener="#{question.onRowUnselect}" />
+                        <p:ajax event="rowToggle"  listener="#{question.expand(car.idQuestions.toString())}"/>
+                        <f:event type="preRenderView" listener="#{pr.imprime(car.idQuestions.toString())}" />
+                        <p:column style="width:10px"  styleClass="row-toggler" >
+                            <p:rowToggler />
+
+
+                        </p:column>
+                        <p:column headerText="Question" style="width: 78%">
+                            <h:outputText value="#{car.question}" />
+                        </p:column>
+                        <p:column headerText="By:" style="width: 12%" >
+                            <h:outputText value="#{car.username.username}" />
+                        </p:column>
+                        <p:column headerText="Date" style="width: 13%" >
+                            <h:outputText value="#{car.date}" />
+                        </p:column>
+                      
+                        
+
+                        <p:growl id="growl1" showDetail="true" life="5000"/> 
+
+                        <p:rowExpansion  id="expancion" >
+
+
+                            <p:commandLink id="botonADD"  immediate="true"  value="Click to responds the question" actionListener="#{question.obteneridques(car.idQuestions.toString())}" onclick="PF('dlg3').show();" /> <h:outputLabel value="# ANWERS: " style="color: #045491;margin-left: 20%"/> <p:outputLabel value="#{question.answersList.size()}" style="font-size: large;color: #D20005"/>
+                            
+                             
+                            <p:growl id="growl12" showDetail="true" life="5000"/>
+                            <p:dataScroller id="ds" rowIndexVar="rowIndex" value="#{question.answersList}" var="aw" chunkSize="5" mode="inline" scrollHeight="200" >
+                                <p:panel id="p1" style="border-left-color: white;border-right-color: white; border-top-color: white; border-bottom-color: darkslateblue">
+
+
+                                    <h:panelGroup id="p2" style="border-color: white;background-color: #D20005;">
+                                        <div align="right">
+                                           
+                                            <h:outputText value="Date: "  />
+                                            <h:outputText value="#{aw.date}" style="font-weight: bold"/>
+                                        </div>  
+                                        <div align="left" style="margin-top: -2%" >
+                                            <h:outputLabel value="#" style="color: #045491;font-weight: bold"/><h:outputLabel value="#{rowIndex+1} " style="color: #045491;font-weight: bold"/>  <h:outputText value="#{aw.username.name}" style="font-weight: bold;color: #AFAFAF"/>
+                                            <h:outputText value=" #{aw.username.lastname}" style="font-weight: bold;color: #AFAFAF"/>
+                                            <h:outputText value=" #{aw.username.username}" style="font-weight: bold"/>
+
+                                        </div>
+                                        <br></br>
+                                        <div style="margin-top: -1.5%;">
+                                        <h:inputTextarea rows="2"  cols="110" value="#{aw.answer}" style="border-style: none; background:none; color: #1f425a; " disabled="true" />
+                                        </div>
+                                    
+                                    </h:panelGroup>
+
+
+                                </p:panel>
+                            </p:dataScroller>
+                        </p:rowExpansion>
+                        
+                     
+                     
+                    
+                    </p:dataTable>
+                    <p:dialog header="Answer" widgetVar="dlg3" showEffect="explode" hideEffect="explode" width="600" height="150">
+      <h:panelGrid columns="2">
+                <p:outputLabel value="Write an answer: " style="margin-bottom: 10%" /> 
+                <p:inputTextarea  id="texta" value="#{question.answer}" rows="3" cols="45" counter="display" maxlength="200" counterTemplate="{0} characters remaining."  autoResize="false" />
+    <h:outputText id="display" style="color: green;font-size: x-small"/>  
+            </h:panelGrid>
+            <center>
+                <p:commandButton  value="Send" icon="ui-icon-comment" action="#{question.createAnswerc1()}" onclick="PF('dlg3').close();"/>
+            </center>
+</p:dialog>
+                  
+               
+                </h:form> 
+         <h:form id="f2">
+            
+            <p:growl id="growlcq" showDetail="true" life="5000"/>
+            <p:growl id="growlca" for="texta" showDetail="true" life="5000"/>
+        </h:form>    
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
