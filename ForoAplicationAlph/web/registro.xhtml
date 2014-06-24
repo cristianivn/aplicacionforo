@@ -25,14 +25,14 @@
                             <p:outputLabel value="Name :" style="font-size: large" />  
                             <p:inputText id="nomus" style="font-size: large"  value="#{user.name}" required="true"  requiredMessage="insert name" validatorMessage="only letters, minimum 2 character, maximum 20" >
                    <f:validateLength minimum="3" maximum="20" />
-                   <f:validateRegex pattern="[a-zA-Z]+" />
+                   <f:validateRegex pattern="[a-zA-Z ]+" />
                    <f:ajax render="mensajenom" event="keyup"/>
                 </p:inputText>
                             <h:outputLabel value="PP"  style="font-size: x-small;color: white" /><h:message id="mensajenom"  for="nomus" style="font-size: xx-small;color: red"/>
                    
                    <p:outputLabel value="Last name :" style="font-size: large"  />  
                    <p:inputText id="ap" style="font-size: large" value="#{user.lastname}" required="true"  requiredMessage="insert lastname" validatorMessage="only letters, minimum 2 character, maximum 20" >
-                   <f:validateRegex pattern="[a-zA-Z]+" />
+                   <f:validateRegex pattern="[a-zA-Z ]+" />
                    <f:validateLength minimum="1" maximum="20"/>  
                    <f:ajax render="mensajeap" event="keyup"/>
                  </p:inputText>
